@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Tạo máy ảo từ box centos/7, gán địa chỉ IP, đặt hostname, gán 2GB bộ nhớ, 2 cpus
+# Create VitualBox centos/7, assign IP address, assign hostname, assign 2GB memory, 2 cpus
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
   config.vm.network "private_network", ip: "172.16.10.100"
@@ -13,16 +13,16 @@ Vagrant.configure("2") do |config|
      vb.memory = "2048"
   end
 
-  # Chạy file install-docker-kube.sh sau khi nạp Box
+  # Run file install-docker-kube.sh after loading Box
   config.vm.provision "shell", path: "./../install-docker-kube.sh"
 
-  # Chạy các lệnh shell
+  # Run command shell
   config.vm.provision "shell", inline: <<-SHELL
-    # Đặt pass 123 có tài khoản root và cho phép SSH
+    # Set password 123 with root account and allow SSH
     echo "123" | passwd --stdin root
     sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
     systemctl reload sshd
-# Ghi nội dung sau ra file /etc/hosts để truy cập được các máy theo HOSTNAME
+# Write the following content to the file /etc/hosts to access the machines according to HOSTNAME
 cat >>/etc/hosts<<EOF
 172.16.10.100 master.xtl
 172.16.10.101 worker1.xtl
