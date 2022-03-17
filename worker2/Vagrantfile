@@ -4,11 +4,11 @@
 # Create VitualBox centos/7, assign IP address, assign hostname, assign 2GB memory, 2 cpus
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
-  config.vm.network "private_network", ip: "172.16.10.100"
-  config.vm.hostname = "master.xtl"
+  config.vm.network "private_network", ip: "172.16.10.102"
+  config.vm.hostname = "worker2.xtl"
 
   config.vm.provider "virtualbox" do |vb, override|
-    vb.name = "master.xtl"
+    vb.name = "worker2.xtl"
     vb.cpus = 2
     vb.memory = "2048"
 
